@@ -25,14 +25,14 @@ function setup() {
   scene.velocityX=-2;
 
   
-  ground=createSprite(590,180,10,5);
+  ground=createSprite(300,280,600,10);
   ground.velocityX=-6;
   ground.x=ground.x/2;
   ground.visible=false;
 
 
-  player=createSprite(200,360,20,50);
-  player.addAnimation(playerimg);
+  player=createSprite(50,260,20,50);
+  player.addAnimation("run",playerimg);
   player.scale=0.1; 
 
   fruitsGroup=new Group();
@@ -70,7 +70,7 @@ function draw(){
    
    if (ground.x < 0){
       ground.x = ground.width/2;
-    }       
+    }      
   
    //jump when the space key is pressed
     if(keyDown("space") && player.y >= 100){
@@ -79,7 +79,7 @@ function draw(){
     }
   
     //add gravity
-    player.velocityY = player.velocityY + 0.9;
+    player.velocityY = player.velocityY + 0.5;
     
      //stop player from falling down
       player.collide(ground);
@@ -101,7 +101,7 @@ function draw(){
         player.scale=0.1;
 
       }
-      text("Score : " + score,100,50);
+      
          
        switch(score){
 
@@ -121,13 +121,16 @@ function draw(){
       }
   
    drawSprites();
+
+   text("Score : " + score,100,50);
 }
 
+
 function spawnobstacles() {
-  if(World.frameCount % 60 === 0) {
+  if(World.frameCount % 200 === 0) {
   
    //Add image of obstacle
-  obstacle = createSprite(400,360,10,10);
+  obstacle = createSprite(600,260,10,10);
   obstacle.addImage(obstacleimg);
   
    obstacle.velocityX = -3;
@@ -135,7 +138,7 @@ function spawnobstacles() {
     
     //assign scale and lifetime to the obstacle           
     obstacle.scale = 0.15;
-    obstacle.lifetime = 134;
+    obstacle.lifetime = 200;
 
     obstaclesGroup.add(obstacle);
   }
@@ -145,7 +148,8 @@ function spawnfruits() {
   if(World.frameCount % 60 === 0) {
   
    //Add image of banana
-   banana = createSprite(400,270,10,10);
+   banana = createSprite(600,170,10,10);
+   banana.y= Math.round(random(150,200));
   banana.addImage(bananaimg);
   banana.scale = 0.05;
 
@@ -155,7 +159,7 @@ function spawnfruits() {
     
     //assign scale and lifetime to the stone           
     banana.scale = 0.05;
-    banana.lifetime = 70;
+    banana.lifetime = 100;
 
 
     fruitsGroup.add(banana);
